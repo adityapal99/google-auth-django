@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import datetime
+from configparser import ConfigParser
+
+config = ConfigParser()
+config.read("config.ini")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qjdiaklj@y9b_d324*nc!ttb@(_8b+@^w650de4o5)bux+x!ib'
-GOOGLE_OAUTH2_CLIENT_ID = '457829866835-2ffc4sr3kaecaqqi7ga3hkmec91j2js8.apps.googleusercontent.com'
-SOCIAL_SECRET = '2mTLxBC9CbvQWEeRWRy2q4XM'
+SECRET_KEY = config.get("APP","SECRET_KEY")
+GOOGLE_OAUTH2_CLIENT_ID = config.get("APP", "GOOGLE_CLIENT_ID")
+SOCIAL_SECRET = config.get("APP", "SOCIAL_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -102,11 +107,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'oauth2trial1',
-#         'USER': 'gsignin',
-#         'PASSWORD': '12345678',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
+#         'NAME': config.get("DATABSE", "DB"),
+#         'USER': config.get("DATABSE", "USER"),
+#         'PASSWORD': config.get("DATABSE", "PASSWORD"),
+#         'HOST': config.get("DATABSE", "HOST"),
+#         'PORT': config.get("DATABSE", "PORT"),
 #     }
 # }
 
